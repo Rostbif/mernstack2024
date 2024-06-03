@@ -5,6 +5,8 @@ import { check, validationResult } from 'express-validator'; // Add this line to
 
 const router = express.Router();
 
+
+
 // /api/users/register
 router.post("/register", [
     check("firstName", "First name is required").isString(),
