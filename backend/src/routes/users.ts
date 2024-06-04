@@ -1,55 +1,57 @@
-import express, { Request, Response } from 'express';
-import jwt from 'jsonwebtoken'; // Add this line to import the 'jsonwebtoken' package
+import express, { Request, Response } from "express";
+import jwt from "jsonwebtoken"; // Add this line to import the 'jsonwebtoken' package
 import User from "../models/user";
-import { check, validationResult } from 'express-validator'; // Add this line to import the 'check' function from 'express-validator'
+import { check, validationResult } from "express-validator"; // Add this line to import the 'check' function from 'express-validator'
 
 const router = express.Router();
 
-
-
 // /api/users/register
-router.post("/register", [
+router.post(
+  "/register",
+  [
     check("firstName", "First name is required").isString(),
     check("lastName", "Last name is required").isString(),
     check("email", "Email is required").isEmail(),
-    check("password", "Password with 4 or more chars is required").isLength({ min: 4 }),
-], async (req: Request, res: Response) => {
+    check("password", "Password with 4 or more chars is required").isLength({
+      min: 4,
+    }),
+  ],
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ message : errors.array() })
+      return res.status(400).json({ message: errors.array() });
     }
     try {
-        let user = await User.findOne({
-            email: req.body.email,
-        });
+      let user = await User.findOne({
+        email: req.body.email,
+      });
 
-        if (user) {
-            return res.status(400).json({ message: "User already exists" });
+      if (user) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      user = new User(req.body);
+      await user.save();
+
+      const token = jwt.sign(
+        { userId: user.id },
+        process.env.JWT_SECRET_KEY as string,
+        {
+          expiresIn: "1d",
         }
+      );
 
-        user = new User(req.body);
-        await user.save();
-
-        const token = jwt.sign(
-            { userId: user.id },
-            process.env.JWT_SECRET_KEY as string,
-            {
-                expiresIn: "1d",
-            }
-        );
-
-        res.cookie("auth_token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 86400000,
-        });
-        return res.sendStatus(200);
-
+      res.cookie("auth_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 86400000,
+      });
+      return res.status(200).send({ message: "User registered successfully" });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ messase: "Something went wronf" });
+      console.log(error);
+      res.status(500).send({ messase: "Something went wrong" });
     }
-});
-
+  }
+);
 
 export default router;
