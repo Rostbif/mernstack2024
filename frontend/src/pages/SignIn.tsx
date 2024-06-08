@@ -4,7 +4,7 @@ import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 
-type SignInFormData = {
+export type SignInFormData = {
   email: string;
   password: string;
 };
