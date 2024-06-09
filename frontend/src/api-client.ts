@@ -1,3 +1,4 @@
+import { AddHotelFormData } from "./pages/AddHotel";
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 
@@ -58,5 +59,22 @@ export const signOut = async () => {
 
   if (!response.ok) {
     throw new Error("Error during sign out");
+  }
+};
+
+export const addHotel = async (formData: AddHotelFormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/add-hotel`, {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.message);
   }
 };

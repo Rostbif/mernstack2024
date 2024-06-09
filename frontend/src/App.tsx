@@ -10,6 +10,7 @@ import {
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import AddHotel from "./pages/AddHotel";
 // import './App.css'
 
 function App() {
@@ -47,6 +48,14 @@ function App() {
           element={
             <Layout>
               <SignIn></SignIn>
+            </Layout>
+          }
+        />
+        <Route
+          path="/add-hotel"
+          element={
+            <Layout>
+              <AddHotel></AddHotel>
             </Layout>
           }
         />
