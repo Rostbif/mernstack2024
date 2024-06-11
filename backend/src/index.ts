@@ -28,6 +28,8 @@ app.use(
   })
 );
 
+console.log("the process.env.FRONTEND_URL is", process.env.FRONTEND_URL);
+
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", authRoutes);
