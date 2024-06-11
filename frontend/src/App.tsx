@@ -10,10 +10,13 @@ import {
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import AddHotel from "./pages/AddHotel";
+import { useAppContext } from "./contexts/AppContext";
 // import './App.css'
 
 function App() {
   //const [count, setCount] = useState(0);
+  const { isLoggedIn } = useAppContext();
 
   return (
     <Router>
@@ -50,6 +53,19 @@ function App() {
             </Layout>
           }
         />
+        {isLoggedIn && (
+          <>
+            {" "}
+            <Route
+              path="/add-hotel"
+              element={
+                <Layout>
+                  <AddHotel></AddHotel>
+                </Layout>
+              }
+            />{" "}
+          </>
+        )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
