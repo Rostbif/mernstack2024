@@ -1,4 +1,4 @@
-import { AddHotelFormData } from "./pages/AddHotel";
+// import { AddHotelFormData } from "./pages/AddHotel";
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 
