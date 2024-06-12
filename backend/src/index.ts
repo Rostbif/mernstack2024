@@ -15,6 +15,20 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+console.log("logging the env variables:");
+console.log(
+  "the process.env.CLOUDINARY_CLOUD_NAME is",
+  process.env.CLOUDINARY_CLOUD_NAME
+);
+console.log(
+  "the process.env.CLOUDINARY_API_KEY is",
+  process.env.CLOUDINARY_API_KEY
+);
+console.log(
+  "the process.env.CLOUDINARY_API_SECRET is",
+  process.env.CLOUDINARY_API_SECRET
+);
+
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
 const app = express();
