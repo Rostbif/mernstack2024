@@ -47,3 +47,25 @@ test("should allow user to add a hotel", async ({ page }) => {
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByText("Hotel Saved!")).toBeVisible({ timeout: 13000 });
 });
+
+test("should display hotels", async ({ page }) => {
+  await page.goto(`${UI_URL}my-hotels`);
+
+  await expect(page.getByText("TestHotel")).toBeVisible();
+  await expect(
+    page.getByText(
+      "here are many variations of passages of Lorem Ipsum available"
+    )
+  ).toBeVisible();
+  await expect(page.getByText("lifa")).toBeVisible();
+  await expect(page.getByText("shifa")).toBeVisible();
+  await expect(page.getByText("Budget").first()).toBeVisible();
+  await expect(page.getByText("£4 per night")).toBeVisible();
+  await expect(page.getByText("3 adults, 3 children")).toBeVisible();
+  await expect(page.getByText("3 Star Rating").first()).toBeVisible();
+
+  await expect(
+    page.getByRole("link", { name: "View Details" }).first()
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Add Hotel" })).toBeVisible();
+});
