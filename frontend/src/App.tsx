@@ -13,6 +13,7 @@ import SignIn from "./pages/SignIn";
 import AddHotel from "./pages/AddHotel";
 import { useAppContext } from "./contexts/AppContext";
 import MyHotel from "./pages/MyHotels";
+import EditHotel from "./pages/EditHotel";
 // import './App.css'
 
 function App() {
@@ -61,6 +62,14 @@ function App() {
               element={
                 <Layout>
                   <AddHotel></AddHotel>
+                </Layout>
+              }
+            />
+            <Route
+              path="/edit-hotel/:id"
+              element={
+                <Layout>
+                  <EditHotel />
                 </Layout>
               }
             />
