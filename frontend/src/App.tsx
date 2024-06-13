@@ -66,7 +66,7 @@ function App() {
               }
             />
             <Route
-              path="/edit-hotel/:id"
+              path="/edit-hotel/:hotelId"
               element={
                 <Layout>
                   <EditHotel />
