@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { body, check, validationResult } from "express-validator";
-import Hotel, { hotelType } from "../models/hotel";
+import Hotel from "../models/hotel";
+import { HotelType } from "../shared/types";
 import multer from "multer";
 import cloudinary from "cloudinary";
 import verifyToken from "../middleware/auth";
@@ -37,7 +38,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const imagefiles = req.files as Express.Multer.File[];
-      const newHotel: hotelType = req.body;
+      const newHotel: HotelType = req.body;
 
       const uploadPromises = imagefiles.map(async (image) => {
         const b64 = Buffer.from(image.buffer).toString("base64");
@@ -61,30 +62,14 @@ router.post(
   }
 );
 
-// router.post(
-//   "/add-hotel",
-//   [
-//     check("name", "Name is required").isString(),
-//     check("city", "City is required").isString(),
-//     check("country", "Country is required").isString(),
-//     check("pricePerNight", "Price per night is required").isNumeric(),
-//   ],
-//   async (req: Request, res: Response) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ message: errors.array() });
-//     }
-//     try {
-//       let hotel = await Hotel.findOne({ name: req.body.name });
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find({ userId: req.userId });
+    res.send(hotels);
+  } catch (e) {
+    console.log("Error in fetching hotels!", e);
 
-//       if (hotel) {
-//         return res.status(400).json({ message: "Hotel already exists" });
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send({ message: "Something went wrong" });
-//     }
-//   }
-// );
-
+    res.status(500).send({ message: "Error in fetching hotels!" });
+  }
+});
 export default router;
