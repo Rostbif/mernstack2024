@@ -50,7 +50,8 @@ const ImagesSection = () => {
           accept="image/*"
           {...register("imageFiles", {
             validate: (imageFiles) => {
-              const totalLength = imageFiles.length;
+              const totalLength =
+                imageFiles.length + (existingImagesUrls?.length || 0);
 
               if (totalLength === 0) {
                 return "At least one image is required";
