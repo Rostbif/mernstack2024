@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
 
   await expect(page.getByRole("heading", { name: "Sign in" })).toBeVisible();
 
-  await page.locator("[name=email]").fill("test@gmail.com");
+  await page.locator("[name=email]").fill("ofiradany@gmail.com");
   await page.locator("[name=password]").fill("1234");
 
   await page.getByRole("button", { name: "Login" }).click();
@@ -22,7 +22,9 @@ test("should allow user to add a hotel", async ({ page }) => {
   test.setTimeout(120000);
   await page.goto(`${UI_URL}add-hotel`);
 
-  await page.locator('[name="name"]').fill("Test Hotel2");
+  await page
+    .locator('[name="name"]')
+    .fill(`Test Hotel ${Math.floor(Math.random() * 90000 + 10000)}`);
   await page.locator('[name="city"]').fill("Test City");
   await page.locator('[name="country"]').fill("Test Country");
   await page
@@ -35,6 +37,8 @@ test("should allow user to add a hotel", async ({ page }) => {
 
   await page.getByLabel("Free Wifi").check();
   await page.getByLabel("Parking").check();
+  await page.getByLabel("Airport Shuttle").check();
+  await page.getByLabel("Spa").check();
 
   await page.locator('[name="adultCount"]').fill("2");
   await page.locator('[name="childCount"]').fill("4");
@@ -73,7 +77,8 @@ test("should display hotels", async ({ page }) => {
 test("should edit hotel", async ({ page }) => {
   await page.goto(`${UI_URL}my-hotels`);
 
-  await page.getByRole("link", { name: "View Details" }).last().click();
+  // it doesn't work as the first hotel is not having that name (i used last and it worked)
+  await page.getByRole("link", { name: "View Details" }).first().click();
 
   await page.waitForSelector('[name="name"]', { state: "attached" });
   await expect(page.locator('[name="name"]')).toHaveValue("Dublin Getaways");
