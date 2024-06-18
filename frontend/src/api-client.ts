@@ -145,8 +145,8 @@ export const searchHotels = async (
   searchParams.facilities?.forEach((facility) =>
     queryParams.append("facilities", facility)
   );
-  searchParams.types?.forEach((type) => queryParams.append("facilities", type));
-  searchParams.stars?.forEach((star) => queryParams.append("facilities", star));
+  searchParams.types?.forEach((type) => queryParams.append("types", type));
+  searchParams.stars?.forEach((star) => queryParams.append("stars", star));
 
   const response = await fetch(
     `${API_BASE_URL}/api/hotels/search?${queryParams}`

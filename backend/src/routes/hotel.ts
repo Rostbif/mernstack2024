@@ -81,11 +81,11 @@ const constructSearchQuery = (queryParams: any) => {
     };
   }
 
-  if (queryParams.type) {
-    constructedQuery.facilities = {
-      $in: Array.isArray(queryParams.type)
-        ? queryParams.type
-        : [queryParams.type],
+  if (queryParams.types) {
+    constructedQuery.type = {
+      $in: Array.isArray(queryParams.types)
+        ? queryParams.types
+        : [queryParams.types],
     };
   }
 
