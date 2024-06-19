@@ -15,6 +15,7 @@ import { useAppContext } from "./contexts/AppContext";
 import MyHotel from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
+import Detail from "./pages/Detail";
 // import './App.css'
 
 function App() {
@@ -37,6 +38,15 @@ function App() {
           element={
             <Layout>
               <Search />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/detail/:hotelId"
+          element={
+            <Layout>
+              <Detail />
             </Layout>
           }
         />
