@@ -17,6 +17,7 @@ import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBookings";
 // import './App.css'
 
 function App() {
@@ -98,6 +99,14 @@ function App() {
               element={
                 <Layout>
                   <MyHotel></MyHotel>
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-bookings"
+              element={
+                <Layout>
+                  <MyBookings></MyBookings>
                 </Layout>
               }
             />
