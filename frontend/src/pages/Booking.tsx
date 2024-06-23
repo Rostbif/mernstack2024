@@ -37,10 +37,6 @@ const Booking = () => {
     }
   );
 
-  if (hotelId) {
-    console.log("pita");
-  }
-
   const { data: hotel } = useQuery(
     "fetchHotelById",
     () => apiClient.fetchHotelById(hotelId as string),
@@ -51,8 +47,6 @@ const Booking = () => {
     "fetchCurrentUser",
     apiClient.fetchCurrentUser
   );
-
-  console.log(currentUser?.email);
 
   if (!hotel) {
     return <></>;
